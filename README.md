@@ -1,9 +1,9 @@
 # Rocky Linux Test Framework
 
-**Enhanced VM testing framework with AI/GPU validation capabilities and Claude MCP integration**
+**Comprehensive VM testing framework with AI/GPU validation and MCP integration for automated testing workflows**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Framework Version](https://img.shields.io/badge/Framework-1.1--rlc--ai-blue.svg)](#)
+[![Framework Version](https://img.shields.io/badge/Framework-1.1-blue.svg)](#)
 [![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-green.svg)](#)
 
 ## 🚀 Quick Start
@@ -25,43 +25,43 @@ cp config/server-config.example.sh config/server-config.sh
 ## 🎯 Features
 
 ### ✅ **Core VM Testing**
-- **Automated VM Creation** - KVM/libvirt based virtualization
-- **ISO Boot Testing** - Automated boot validation and monitoring
-- **Remote Control** - SSH-based management from Mac/Linux
-- **VNC Access** - Visual console access for debugging
+- **Automated VM Management** - Complete KVM/libvirt virtualization
+- **ISO Testing** - Boot validation and system testing
+- **Remote Control** - SSH-based management from any machine
+- **Console Access** - VNC support for visual debugging
 
-### ✅ **Enhanced AI/GPU Testing**
-- **RLC-AI Boot Detection** - AI-specific system recognition
-- **GPU Validation** - NVIDIA/CUDA detection and testing
-- **AI Framework Testing** - PyTorch, TensorFlow validation
-- **Container Runtime** - Podman/Docker functionality testing
+### ✅ **Advanced Testing Capabilities**
+- **Boot Detection** - Intelligent system startup monitoring
+- **GPU/Hardware Validation** - NVIDIA/CUDA detection and testing
+- **Software Framework Testing** - PyTorch, TensorFlow, container runtimes
+- **Custom Workloads** - Execute arbitrary commands in test VMs
 
-### ✅ **Claude MCP Integration**
-- **JSON API** - Structured responses for AI consumption
-- **Real-time Status** - Progress monitoring and reporting
-- **Command Execution** - Remote AI workload testing
-- **MCP Compatible** - Ready for Claude automation
+### ✅ **AI Assistant Integration**
+- **JSON API** - Structured responses for AI/automation consumption
+- **MCP Compatible** - Ready for Claude and other AI assistants
+- **Real-time Monitoring** - Progress tracking and status reporting
+- **Command Execution** - Remote workload testing and validation
 
-### ✅ **Security & Reliability**
-- **User Home Data** - No system-wide permission changes needed
-- **SSH Key Authentication** - Secure key-based access
-- **Comprehensive Logging** - Detailed test execution logs
-- **Graceful Error Handling** - Robust failure recovery
+### ✅ **Enterprise Ready**
+- **Secure by Design** - User home directory data, SSH key authentication
+- **Comprehensive Logging** - Detailed execution and audit trails
+- **Scalable Testing** - Concurrent VM support with resource management
+- **Robust Error Handling** - Graceful failure recovery and cleanup
 
 ## 📋 Requirements
 
-### **Control Machine (Mac/Linux)**
+### **Control Machine (Mac/Linux/Windows)**
 - SSH client
 - Git
-- Bash 4.0+
+- Bash 4.0+ (or compatible shell)
 
 ### **Target Server (Rocky Linux)**
-- Rocky Linux 9.x
-- 4GB+ RAM, 20GB+ disk space
-- CPU virtualization support (VT-x/AMD-V)
-- Sudo access for user account
+- Rocky Linux 9.x (or compatible RHEL-based distribution)
+- 4GB+ RAM, 20GB+ available disk space
+- CPU virtualization support (Intel VT-x or AMD-V)
+- User account with sudo privileges
 
-## 🔧 Configuration
+## 🔧 Quick Configuration
 
 Edit `config/server-config.sh`:
 ```bash
@@ -71,132 +71,157 @@ DELL_SERVER_USER="your-username"       # Your username on the server
 SSH_KEY_PATH="$HOME/.ssh/id_rsa"      # Path to your SSH private key
 ```
 
-## 🧪 Usage
+## 🧪 Usage Examples
 
 ### **Deploy Framework**
 ```bash
-./deploy.sh                    # Deploy complete framework
-./test.sh                      # Validate installation
+./deploy.sh                    # Deploy complete framework to server
+./test.sh                      # Validate installation and connectivity
 ```
 
-### **Basic VM Testing**
+### **Basic ISO Testing**
 ```bash
-# Upload ISO
+# Upload ISO to server
 scp test.iso user@server:/var/lib/libvirt/isos/
 
-# Start test
+# Start automated test
 ssh server '/opt/remote-test-controller start-test /var/lib/libvirt/isos/test.iso'
 
 # Monitor progress
 ssh server '/opt/remote-test-controller status test-id'
 ```
 
-### **AI/RLC-AI Testing**
+### **Advanced AI/GPU Testing**
 ```bash
-# Start RLC-AI test
-ssh server '/opt/remote-test-controller start-rlc-ai-test /var/lib/libvirt/isos/rlc-ai.iso'
+# Start comprehensive AI system test
+ssh server '/opt/remote-test-controller start-rlc-ai-test /var/lib/libvirt/isos/ai-system.iso'
 
-# Run AI workloads
+# Execute specific validation commands
 ssh server '/opt/remote-test-controller run-workload test-id "nvidia-smi"'
 ssh server '/opt/remote-test-controller run-workload test-id "python3 -c \"import torch; print(torch.cuda.is_available())\""'
 
-# Enhanced status
-ssh server '/opt/remote-test-controller status'
+# Get detailed status and results
+ssh server '/opt/remote-test-controller status test-id'
 ```
 
-### **Test Types Available**
-- `minimal` - Basic boot + system validation
-- `gpu_detection` - GPU/CUDA detection only  
+### **Available Test Types**
+- `minimal` - Basic boot and system validation
+- `gpu_detection` - Hardware detection (GPU/CUDA)
 - `pytorch` - PyTorch framework validation
 - `tensorflow` - TensorFlow framework validation
-- `container` - Container runtime validation
-- `full` - Complete AI stack validation (default)
+- `container` - Container runtime testing (Podman/Docker)
+- `full` - Complete system validation (default)
 
-## 🤖 Claude MCP Integration
+## 🤖 AI Assistant Integration
 
-### **JSON API Example**
+The framework provides a JSON API optimized for AI assistant integration:
+
+### **System Status Response**
 ```json
 {
-    "ready": true,
-    "framework_version": "1.1-rlc-ai",
-    "mcp_compatible": true,
-    "capabilities": [
-        "rlc_ai_boot_detection",
-        "ai_workload_testing",
-        "command_execution",
-        "gpu_validation",
-        "container_testing"
-    ],
-    "system_info": {
-        "hostname": "rocky-server",
-        "memory_usage": "45.2%",
-        "vm_storage": "15G available"
-    }
+  "ready": true,
+  "framework_version": "1.1",
+  "mcp_compatible": true,
+  "capabilities": [
+    "boot_detection",
+    "ai_workload_testing",
+    "command_execution", 
+    "gpu_validation",
+    "container_testing"
+  ],
+  "system_info": {
+    "hostname": "test-server",
+    "memory_usage": "45.2%",
+    "vm_storage": "15G available"
+  }
 }
 ```
 
-### **MCP Integration**
-See [docs/MCP-INTEGRATION.md](docs/MCP-INTEGRATION.md) for detailed Claude integration guide.
+### **MCP Integration for Claude**
+The framework is designed to work seamlessly with Claude and other AI assistants through the Model Context Protocol (MCP). See [docs/MCP-INTEGRATION.md](docs/MCP-INTEGRATION.md) for detailed integration examples.
 
 ## 📁 Project Structure
 
 ```
 rocky-linux-test-framework/
 ├── deploy.sh                    # Main deployment script
-├── test.sh                      # Validation testing
-├── install.sh                   # One-command installer
-├── rltest                       # Convenient launcher
+├── test.sh                      # Framework validation
+├── install.sh                   # One-command installer  
+├── rltest                       # Convenient command wrapper
 ├── config/
-│   ├── server-config.sh         # Server configuration
+│   ├── server-config.sh         # Your server configuration
 │   └── server-config.example.sh # Configuration template
 ├── scripts/
 │   ├── 01-install-packages.sh   # Package installation
 │   ├── 02-setup-vm-manager.sh   # VM management setup
-│   ├── 03-setup-remote-controller.sh # Enhanced API with RLC-AI
+│   ├── 03-setup-remote-controller.sh # Enhanced API
 │   └── 04-configure-system.sh   # System configuration
 ├── docs/
 │   ├── QUICK-START.md           # Getting started guide
-│   ├── AI-TESTING.md            # AI/RLC-AI testing guide
-│   ├── MCP-INTEGRATION.md       # Claude integration
-│   └── TROUBLESHOOTING.md       # Common issues
+│   ├── AI-TESTING.md            # Advanced testing capabilities
+│   ├── API-REFERENCE.md         # Complete API documentation
+│   ├── MCP-INTEGRATION.md       # AI assistant integration
+│   └── TROUBLESHOOTING.md       # Issue resolution
 └── examples/
     ├── basic-test.sh            # Simple usage example
-    ├── ai-workload-test.sh      # AI testing example
-    └── mcp-integration/         # MCP code examples
+    ├── ai-workload-test.sh      # AI system testing
+    └── mcp-integration/         # AI assistant examples
 ```
+
+## 🎯 Use Cases
+
+### **Software Testing**
+- **Operating System Validation** - Test custom Linux distributions
+- **Application Testing** - Validate software in clean environments
+- **Hardware Compatibility** - Test drivers and hardware support
+
+### **AI/ML Development**
+- **GPU Validation** - Test NVIDIA/CUDA configurations
+- **Framework Testing** - Validate PyTorch, TensorFlow installations
+- **Container Platforms** - Test containerized AI workloads
+
+### **Automation & CI/CD**
+- **Automated Testing** - Integration with CI/CD pipelines
+- **Quality Assurance** - Automated validation workflows
+- **AI-Driven Testing** - Claude and other AI assistant integration
+
+### **Education & Research**
+- **Learning Environments** - Safe VM testing for students
+- **Research Validation** - Reproducible testing environments
+- **Proof of Concepts** - Rapid prototyping and validation
 
 ## 🔍 Troubleshooting
 
-### **Common Issues**
-
-**SSH Connection Failed**
+### **Quick Diagnostics**
 ```bash
-# Test SSH access
-ssh -i ~/.ssh/id_rsa user@server
+# Test SSH connectivity
+ssh -i ~/.ssh/id_rsa user@server 'echo "Connection working"'
 
-# Copy SSH key if needed
-ssh-copy-id -i ~/.ssh/id_rsa user@server
+# Verify framework status
+ssh server '/opt/remote-test-controller ready'
+
+# Check system resources
+ssh server '/opt/remote-test-controller status'
 ```
 
-**Sudo Password Required**
-- The framework uses interactive sudo prompts for security
-- You'll be prompted for your password during deployment
+### **Common Solutions**
+- **SSH Issues**: Use `ssh-copy-id` to install your public key
+- **Permission Errors**: Framework uses user home directory (`~/vm-testing/`)
+- **Resource Limits**: Check available memory and disk space
 
-**Permission Denied**
-- Framework stores data in `~/vm-testing/` (user home)
-- No system-wide permission changes required
-
-See [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) for complete troubleshooting guide.
+See [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) for comprehensive troubleshooting.
 
 ## 📖 Documentation
 
-- **[Quick Start Guide](docs/QUICK-START.md)** - Get up and running quickly
-- **[AI Testing Guide](docs/AI-TESTING.md)** - RLC-AI and GPU testing
-- **[MCP Integration](docs/MCP-INTEGRATION.md)** - Claude automation setup
-- **[API Reference](docs/API-REFERENCE.md)** - Complete command reference
+- **[Quick Start Guide](docs/QUICK-START.md)** - Get running in minutes
+- **[AI Testing Guide](docs/AI-TESTING.md)** - Advanced testing capabilities
+- **[API Reference](docs/API-REFERENCE.md)** - Complete command documentation
+- **[MCP Integration](docs/MCP-INTEGRATION.md)** - AI assistant setup
 - **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Common issues and solutions
 
 ## 🤝 Contributing
+
+We welcome contributions! Please:
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -210,16 +235,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **Rocky Linux** community for the excellent AI-focused distribution
-- **CIQ** for RLC-AI development and testing requirements
-- **Anthropic** for Claude MCP integration capabilities
+- **Rocky Linux** community for excellent enterprise Linux distribution
+- **KVM/QEMU** teams for robust virtualization technology
+- **Anthropic** for MCP protocol and Claude integration capabilities
 
 ## 📞 Support
 
 - **Issues**: [GitHub Issues](https://github.com/itsocialist/rocky-linux-test-framework/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/itsocialist/rocky-linux-test-framework/discussions)
-- **Documentation**: [docs/](docs/) directory
+- **Documentation**: Complete guides in [docs/](docs/) directory
 
 ---
 
-**🎯 Ready for production VM testing with AI/GPU validation and Claude integration!** 🚀
+**🎯 Ready for automated VM testing with AI assistant integration!** 🚀
