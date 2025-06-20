@@ -1,0 +1,55 @@
+#!/bin/bash
+# Rocky Linux Test Framework Launcher
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+case "${1:-help}" in
+    "deploy")
+        echo "🚀 Deploying Rocky Linux Test Framework..."
+        "$SCRIPT_DIR/deploy.sh"
+        ;;
+    "test")
+        echo "🧪 Running framework validation..."
+        "$SCRIPT_DIR/test.sh"
+        ;;
+    "status")
+        echo "📊 Getting framework status..."
+        "$SCRIPT_DIR/deploy.sh" status
+        ;;
+    "config")
+        echo "⚙️ Opening configuration..."
+        if command -v nano >/dev/null 2>&1; then
+            nano "$SCRIPT_DIR/config/server-config.sh"
+        elif command -v vim >/dev/null 2>&1; then
+            vim "$SCRIPT_DIR/config/server-config.sh"
+        else
+            echo "Please edit: $SCRIPT_DIR/config/server-config.sh"
+        fi
+        ;;
+    "help"|*)
+        echo "🎯 Rocky Linux Test Framework"
+        echo "=============================="
+        echo ""
+        echo "Usage: $0 {deploy|test|status|config|help}"
+        echo ""
+        echo "Commands:"
+        echo "  deploy  - Deploy framework to Rocky Linux server"
+        echo "  test    - Run validation tests"
+        echo "  status  - Get framework status"
+        echo "  config  - Edit server configuration"
+        echo "  help    - Show this help"
+        echo ""
+        echo "Files:"
+        echo "  Configuration: $SCRIPT_DIR/config/server-config.sh"
+        echo "  Documentation: $SCRIPT_DIR/docs/"
+        echo "  Examples: $SCRIPT_DIR/examples/"
+        echo ""
+        echo "Features:"
+        echo "  ✅ VM Testing and Management"
+        echo "  ✅ RLC-AI Boot Detection"
+        echo "  ✅ AI Workload Testing (GPU, PyTorch, TensorFlow)"
+        echo "  ✅ Container Runtime Validation"
+        echo "  ✅ MCP Integration for Claude"
+        echo ""
+        ;;
+esac

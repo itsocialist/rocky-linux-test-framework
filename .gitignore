@@ -1,0 +1,39 @@
+# Configuration files with sensitive data
+config/server-config.sh
+
+# Log files
+*.log
+logs/
+vm-testing/
+
+# Temporary files
+*.tmp
+.DS_Store
+
+# Test results and deployment summaries
+results/
+deployment-summary-*.md
+*-TEST-REPORT-*.md
+*-DEPLOYMENT-SUMMARY-*.md
+
+# SSH keys and sensitive files
+*.pem
+*.key
+id_rsa*
+known_hosts
+
+# Server-specific information
+*dell5280*
+*192.168*
+*bdawson*
+
+# Development files
+PROJECT-HANDOFF*.md
+PROJECT-STATUS.md
+STRATEGIC-PLAN*.md
+DATA-PATH-UPDATE.md
+GITHUB-PACKAGING-READY.md
+
+# Backup files
+*.backup
+*.bak
