@@ -133,7 +133,57 @@ remote-test-controller bare-metal-reboot physical-server-01
 - **Auto-scaling** - Dynamic test server provisioning based on load
 - **Cloud storage** - Results and screenshots stored in cloud storage
 
-### **5. Web Dashboard (Optional)**
+### **5. 🎮 NEW: GPU Passthrough & Advanced Virtualization**
+
+#### **GPU Passthrough Capabilities:**
+```bash
+# Planned GPU passthrough commands
+remote-test-controller create-gpu-vm --gpu-id 0000:01:00.0 --template gpu-accelerated
+remote-test-controller start-test /path/to/ai-iso --gpu-enabled
+remote-test-controller gpu-status vm-name  # Monitor GPU usage in VM
+remote-test-controller benchmark-gpu vm-name  # GPU performance testing
+```
+
+#### **Enhanced QEMU/QCOW2 Support:**
+```bash
+# Advanced VM features
+remote-test-controller create-vm --disk-format qcow2 --size 100G --snapshot-support
+remote-test-controller snapshot-vm vm-name checkpoint-1
+remote-test-controller restore-vm vm-name checkpoint-1
+remote-test-controller clone-vm source-vm target-vm  # Linked clones for efficiency
+```
+
+#### **Advanced Virtualization Features:**
+- **QEMU Guest Agent integration** - Better VM management and monitoring
+- **UEFI/SecureBoot support** - Modern boot firmware testing
+- **Multiple disk support** - Additional storage volumes
+- **Network bridge configuration** - Advanced networking setups
+- **CPU topology control** - NUMA, CPU pinning, performance tuning
+- **Memory balloon and hugepages** - Memory optimization
+
+#### **GPU Testing Capabilities:**
+```bash
+# GPU-specific testing workflows
+remote-test-controller start-gpu-test /path/to/ai-workload.iso
+remote-test-controller execute vm-name "nvidia-smi" --gpu-validation
+remote-test-controller execute vm-name "test-cuda-performance.sh"
+remote-test-controller screenshot vm-name --capture-gpu-desktop  # GPU-accelerated desktop
+```
+
+#### **Production VM Support:**
+- **Persistent VM mode** - VMs that survive framework restarts
+- **Resource reservation** - Dedicated CPU/memory allocation
+- **Storage management** - Persistent volumes and data preservation
+- **Service integration** - Long-running services vs testing workflows
+- **Backup/restore** - VM state preservation and recovery
+
+#### **Integration Points:**
+- **AI Development VMs** - Templates optimized for model hosting
+- **Production testing** - Validate configurations before deployment
+- **Hardware validation** - Test GPU compatibility across different setups
+- **Performance benchmarking** - Compare GPU performance across VMs and bare-metal
+
+### **6. Web Dashboard (Optional)**
 ```
 Framework Web Interface:
 ├── Real-time test status (VM + Bare-metal)
@@ -178,14 +228,21 @@ Claude:
 
 ---
 
-## 🔍 BARE-METAL TESTING RESEARCH TASKS
+## 🔍 RESEARCH TASKS
 
-### **Technical Investigation Needed:**
+### **Bare-Metal Testing Research:**
 1. **Hardware Inventory** - Survey available test hardware and capabilities
 2. **IPMI Assessment** - Evaluate BMC/IPMI capabilities on target servers
 3. **Network Infrastructure** - PXE boot network requirements and setup
 4. **Tool Evaluation** - Compare existing bare-metal tools (Foreman, MaaS, Cobbler)
 5. **Integration Architecture** - How to unify VM and bare-metal APIs
+
+### **🆕 GPU Passthrough Research:**
+1. **GPU Hardware Assessment** - Survey available GPUs and capabilities
+2. **IOMMU Configuration** - Evaluate IOMMU groups and passthrough feasibility
+3. **Driver Management** - Host vs guest GPU driver coordination
+4. **VFIO Setup** - Virtual Function I/O configuration and testing
+5. **Performance Impact** - Measure GPU passthrough vs bare-metal performance
 
 ### **Proof of Concept Goals:**
 ```bash
@@ -239,7 +296,13 @@ remote-test-controller execute dell-server-01 "dmidecode -t system"  # Hardware 
 3. **Tool research** - Evaluate Foreman, MaaS, Cobbler integration options
 4. **Architecture design** - Plan unified VM/bare-metal API
 
-### **Priority 3: Bare-Metal MVP Development**
+### **Priority 3: Advanced Virtualization Development**
+1. **GPU passthrough setup** - IOMMU, VFIO configuration for GPU access
+2. **Enhanced QEMU features** - QCOW2, snapshots, linked clones
+3. **Production VM mode** - Persistent VMs for long-running services
+4. **Advanced templates** - GPU-accelerated, AI-optimized VM configurations
+
+### **Priority 4: Bare-Metal MVP Development**
 1. **Basic IPMI integration** - Power control and console access
 2. **PXE boot setup** - Network boot capability for test ISOs
 3. **Unified command interface** - Extend existing API for bare-metal
