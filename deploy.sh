@@ -65,10 +65,10 @@ verify_prerequisites() {
     
     # Check required scripts
     local required_scripts=(
-        "01-install-packages.sh"
-        "02-setup-vm-manager.sh" 
-        "03-setup-remote-controller.sh"
-        "04-configure-system.sh"
+        "scripts/01-install-packages.sh"
+        "scripts/02-setup-vm-manager.sh" 
+        "scripts/03-setup-remote-controller.sh"
+        "scripts/04-configure-system.sh"
     )
     
     for script in "${required_scripts[@]}"; do
@@ -90,21 +90,22 @@ verify_prerequisites() {
 deploy_script() {
     local script_name="$1"
     local script_path="$SCRIPT_DIR/$script_name"
+    local script_basename="$(basename "$script_name")"
     
-    log "Deploying $script_name..."
+    log "Deploying $script_basename..."
     
     # Copy script to server
-    scp -i "$SSH_KEY_PATH" "$script_path" "$DELL_SERVER_USER@$DELL_SERVER_IP:/tmp/"
+    scp -i "$SSH_KEY_PATH" "$script_path" "$DELL_SERVER_USER@$DELL_SERVER_IP:/tmp/$script_basename"
     
     # Make executable and run with interactive sudo
-    log "Running $script_name (you may be prompted for sudo password)..."
+    log "Running $script_basename (you may be prompted for sudo password)..."
     ssh -t -i "$SSH_KEY_PATH" "$DELL_SERVER_USER@$DELL_SERVER_IP" "
-        chmod +x /tmp/$script_name
-        sudo /tmp/$script_name
-        rm /tmp/$script_name
+        chmod +x /tmp/$script_basename
+        sudo /tmp/$script_basename
+        rm /tmp/$script_basename
     "
     
-    success "$script_name deployed successfully"
+    success "$script_basename deployed successfully"
 }
 
 
@@ -282,10 +283,10 @@ main() {
     echo
     
     # Deploy enhanced framework components (RLC-AI capabilities integrated)
-    deploy_script "01-install-packages.sh"
-    deploy_script "02-setup-vm-manager.sh"
-    deploy_script "03-setup-remote-controller.sh"  # Now includes RLC-AI enhancements
-    deploy_script "04-configure-system.sh"
+    deploy_script "scripts/01-install-packages.sh"
+    deploy_script "scripts/02-setup-vm-manager.sh"
+    deploy_script "scripts/03-setup-remote-controller.sh"  # Now includes RLC-AI enhancements
+    deploy_script "scripts/04-configure-system.sh"
     
     # Verify everything works
     verify_deployment
